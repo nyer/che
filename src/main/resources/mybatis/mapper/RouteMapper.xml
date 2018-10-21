@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.che.dao.RouteDao" >
+  <resultMap id="BaseResultMap" type="com.che.model.Route" >
+    <id column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="route_name" property="routeName" jdbcType="VARCHAR" />
+    <result column="init_station" property="initStation" jdbcType="INTEGER" />
+    <result column="final_station" property="finalStation" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    route_id, route_name, init_station, final_station, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_route
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_route
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.che.model.Route" >
+    insert into tb_route (route_id, route_name, init_station, 
+      final_station, create_time, update_time
+      )
+    values (#{routeId,jdbcType=BIGINT}, #{routeName,jdbcType=VARCHAR}, #{initStation,jdbcType=INTEGER}, 
+      #{finalStation,jdbcType=INTEGER}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.che.model.Route" >
+    insert into tb_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        route_id,
+      </if>
+      <if test="routeName != null" >
+        route_name,
+      </if>
+      <if test="initStation != null" >
+        init_station,
+      </if>
+      <if test="finalStation != null" >
+        final_station,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routeId != null" >
+        #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="routeName != null" >
+        #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="initStation != null" >
+        #{initStation,jdbcType=INTEGER},
+      </if>
+      <if test="finalStation != null" >
+        #{finalStation,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.Route" >
+    update tb_route
+    <set >
+      <if test="routeName != null" >
+        route_name = #{routeName,jdbcType=VARCHAR},
+      </if>
+      <if test="initStation != null" >
+        init_station = #{initStation,jdbcType=INTEGER},
+      </if>
+      <if test="finalStation != null" >
+        final_station = #{finalStation,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.che.model.Route" >
+    update tb_route
+    set route_name = #{routeName,jdbcType=VARCHAR},
+      init_station = #{initStation,jdbcType=INTEGER},
+      final_station = #{finalStation,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where route_id = #{routeId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,50 @@
+server:
+  port: 8080
+  context-path: /
+
+spring:
+  aop:
+    auto: true
+    proxy-target-class: true
+  application:
+    name: che
+
+  datasource:
+    name: test
+    url: jdbc:mysql://127.0.0.1:3306/che?serverTimezone=UTC
+    username: root
+    password: 123456
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name:  com.mysql.cj.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+  freemarker:
+    enabled: true
+    charset: UTF-8
+    cache: false
+    content-type: text/html
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    settings:
+          number_format: '0.##'
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  config: classpath:logback.xml
+
+
