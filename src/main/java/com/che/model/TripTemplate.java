@@ -5,8 +5,6 @@ public class TripTemplate {
 
     private String templateName;
 
-    private Long routeId;
-
     private String cronExpression;
 
     private Long createTime;
@@ -27,14 +25,6 @@ public class TripTemplate {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName == null ? null : templateName.trim();
-    }
-
-    public Long getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(Long routeId) {
-        this.routeId = routeId;
     }
 
     public String getCronExpression() {

@@ -5,6 +5,8 @@ public class Route {
 
     private String routeName;
 
+    private Long tripTemplateId;
+
     private Integer initStation;
 
     private Integer finalStation;
@@ -27,6 +29,14 @@ public class Route {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName == null ? null : routeName.trim();
+    }
+
+    public Long getTripTemplateId() {
+        return tripTemplateId;
+    }
+
+    public void setTripTemplateId(Long tripTemplateId) {
+        this.tripTemplateId = tripTemplateId;
     }
 
     public Integer getInitStation() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.che.dao.RouteDao" >
+<mapper namespace="RouteMapper" >
   <resultMap id="BaseResultMap" type="com.che.model.Route" >
     <id column="route_id" property="routeId" jdbcType="BIGINT" />
     <result column="route_name" property="routeName" jdbcType="VARCHAR" />

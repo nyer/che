@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.che.dao.TripDao" >
+<mapper namespace="TripMapper" >
   <resultMap id="BaseResultMap" type="com.che.model.Trip" >
     <id column="trip_id" property="tripId" jdbcType="BIGINT" />
     <result column="departure_time" property="departureTime" jdbcType="BIGINT" />
