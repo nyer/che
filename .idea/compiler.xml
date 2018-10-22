@@ -9,5 +9,8 @@
         <module name="che" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="che" target="1.6" />
+    </bytecodeTargetLevel>
   </component>
 </project>

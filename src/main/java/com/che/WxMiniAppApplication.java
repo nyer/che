@@ -13,5 +13,3 @@ public class WxMiniAppApplication {
         SpringApplication.run(WxMiniAppApplication.class, args);
     }
 }
-
-
