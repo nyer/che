@@ -9,4 +9,6 @@ public interface RouteDao {
     int insert(Route record);
 
     int updateByPrimaryKeySelective(Route record);
+
+    Route selectByRouteId(Long routeId);
 }

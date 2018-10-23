@@ -2,7 +2,9 @@ package com.che.dao.impl;
 
 import com.che.dao.TripDao;
 import com.che.model.Trip;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TripDaoImpl implements TripDao {
 
     @Override

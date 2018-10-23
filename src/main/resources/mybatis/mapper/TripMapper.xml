@@ -1,88 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="TripMapper" >
-  <resultMap id="BaseResultMap" type="com.che.model.Trip" >
-    <id column="trip_id" property="tripId" jdbcType="BIGINT" />
-    <result column="departure_time" property="departureTime" jdbcType="BIGINT" />
-    <result column="route_id" property="routeId" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="BIGINT" />
-    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="TripMapper">
+    <resultMap id="BaseResultMap" type="com.che.model.Trip">
+        <id column="trip_id" property="tripId" jdbcType="BIGINT"/>
+        <result column="departure_time" property="departureTime" jdbcType="BIGINT"/>
+        <result column="route_id" property="routeId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     trip_id, departure_time, route_id, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_trip
-    where trip_id = #{tripId,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_trip
+        where trip_id = #{tripId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from tb_trip
     where trip_id = #{tripId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.che.model.Trip" >
-    insert into tb_trip (trip_id, departure_time, route_id, 
+    <insert id="insert" parameterType="com.che.model.Trip" useGeneratedKeys="true" keyColumn="trip_id"
+            keyProperty="tripId">
+    insert into tb_trip (departure_time, route_id,
       create_time, update_time)
-    values (#{tripId,jdbcType=BIGINT}, #{departureTime,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT}, 
+    values (#{departureTime,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.che.model.Trip" >
-    insert into tb_trip
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="tripId != null" >
-        trip_id,
-      </if>
-      <if test="departureTime != null" >
-        departure_time,
-      </if>
-      <if test="routeId != null" >
-        route_id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="tripId != null" >
-        #{tripId,jdbcType=BIGINT},
-      </if>
-      <if test="departureTime != null" >
-        #{departureTime,jdbcType=BIGINT},
-      </if>
-      <if test="routeId != null" >
-        #{routeId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.Trip" >
-    update tb_trip
-    <set >
-      <if test="departureTime != null" >
-        departure_time = #{departureTime,jdbcType=BIGINT},
-      </if>
-      <if test="routeId != null" >
-        route_id = #{routeId,jdbcType=BIGINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=BIGINT},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=BIGINT},
-      </if>
-    </set>
-    where trip_id = #{tripId,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.che.model.Trip" >
+    <insert id="insertSelective" parameterType="com.che.model.Trip">
+        insert into tb_trip
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tripId != null">
+                trip_id,
+            </if>
+            <if test="departureTime != null">
+                departure_time,
+            </if>
+            <if test="routeId != null">
+                route_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tripId != null">
+                #{tripId,jdbcType=BIGINT},
+            </if>
+            <if test="departureTime != null">
+                #{departureTime,jdbcType=BIGINT},
+            </if>
+            <if test="routeId != null">
+                #{routeId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.che.model.Trip">
+        update tb_trip
+        <set>
+            <if test="departureTime != null">
+                departure_time = #{departureTime,jdbcType=BIGINT},
+            </if>
+            <if test="routeId != null">
+                route_id = #{routeId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where trip_id = #{tripId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.che.model.Trip">
     update tb_trip
     set departure_time = #{departureTime,jdbcType=BIGINT},
       route_id = #{routeId,jdbcType=BIGINT},

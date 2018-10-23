@@ -1,5 +1,7 @@
 package com.che.dao.impl;
 
+import com.google.common.collect.ImmutableMap;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.cursor.Cursor;
 import org.apache.ibatis.executor.BatchResult;
 import org.apache.ibatis.session.*;
@@ -166,5 +168,25 @@ public class BaseDaoImpl extends SqlSessionDaoSupport implements SqlSession {
     @Override
     public Connection getConnection() {
         return getSqlSession().getConnection();
+    }
+
+    Map<String, Object> newCond(String key, Object value) {
+
+        return ImmutableMap.of(key, value);
+    }
+
+    Map<String, Object> newCond(String key1, Object value1, String key2, Object value2) {
+
+        return ImmutableMap.of(key1, value1, key2, value2);
+    }
+
+    <E> E one(List<E> list){
+
+        if (CollectionUtils.isEmpty(list)) {
+
+            return list.get(0);
+        }
+
+        return null;
     }
 }

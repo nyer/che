@@ -1,6 +1,6 @@
 package com.che.service;
 
-import com.che.model.Trip;
+import com.che.dto.TripDto;
 import com.che.model.TripGorder;
 import com.che.model.TripOrder;
 
@@ -24,5 +24,5 @@ public interface OrderService {
      * @param trip
      * @return
      */
-    TripOrder createOrder(Long userId, Trip trip);
+    TripOrder createOrder(TripDto trip);
 }

@@ -2,7 +2,9 @@ package com.che.dao.impl;
 
 import com.che.dao.TripTemplateDao;
 import com.che.model.TripTemplate;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TripTemplateDaoImpl implements TripTemplateDao {
     @Override
     public int deleteByPrimaryKey(Long templateId) {

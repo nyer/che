@@ -5,6 +5,10 @@ public class Station {
 
     private String stationName;
 
+    private Float latitude;
+
+    private Float longitude;
+
     private Long createTime;
 
     private Long updateTime;
@@ -23,6 +27,22 @@ public class Station {
 
     public void setStationName(String stationName) {
         this.stationName = stationName == null ? null : stationName.trim();
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
     }
 
     public Long getCreateTime() {
