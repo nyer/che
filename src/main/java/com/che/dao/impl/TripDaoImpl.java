@@ -5,7 +5,7 @@ import com.che.model.Trip;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TripDaoImpl implements TripDao {
+public class TripDaoImpl extends BaseDaoImpl implements TripDao {
 
     @Override
     public int deleteByPrimaryKey(Long tripId) {
@@ -14,11 +14,20 @@ public class TripDaoImpl implements TripDao {
 
     @Override
     public int insert(Trip record) {
-        return 0;
+        return insert("TripMapper.insert", record);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Trip record) {
-        return 0;
+        return update("TripMapper.updateByPrimaryKeySelective", record);
+    }
+
+    @Override
+    public int updateOrderId(Long tripId, Long orderId) {
+
+        Trip trip = new Trip();
+        trip.setTripId(tripId);
+        trip.setOrderId(orderId);
+        return this.updateByPrimaryKeySelective(trip);
     }
 }

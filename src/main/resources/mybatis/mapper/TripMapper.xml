@@ -1,94 +1,96 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="TripMapper">
-    <resultMap id="BaseResultMap" type="com.che.model.Trip">
-        <id column="trip_id" property="tripId" jdbcType="BIGINT"/>
-        <result column="departure_time" property="departureTime" jdbcType="BIGINT"/>
-        <result column="route_id" property="routeId" jdbcType="BIGINT"/>
-        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
-        <result column="update_time" property="updateTime" jdbcType="BIGINT"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    trip_id, departure_time, route_id, create_time, update_time
+<mapper namespace="TripMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.Trip" >
+    <id column="trip_id" property="tripId" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="departure_time" property="departureTime" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="route_id" property="routeId" jdbcType="BIGINT" />
+    <result column="trip_type" property="tripType" jdbcType="TINYINT" />
+    <result column="init_station_name" property="initStationName" jdbcType="VARCHAR" />
+    <result column="init_latitude" property="initLatitude" jdbcType="REAL" />
+    <result column="init_longitude" property="initLongitude" jdbcType="REAL" />
+    <result column="final_station_name" property="finalStationName" jdbcType="VARCHAR" />
+    <result column="final_latitude" property="finalLatitude" jdbcType="REAL" />
+    <result column="final_longitude" property="finalLongitude" jdbcType="REAL" />
+    <result column="board_time" property="boardTime" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    trip_id, order_id, departure_time, user_id, route_id, trip_type, init_station_name, init_latitude,
+    init_longitude, final_station_name, final_latitude, final_longitude, board_time, 
+    create_time, update_time
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
-        from tb_trip
-        where trip_id = #{tripId,jdbcType=BIGINT}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_trip
+    where trip_id = #{tripId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_trip
     where trip_id = #{tripId,jdbcType=BIGINT}
   </delete>
-    <insert id="insert" parameterType="com.che.model.Trip" useGeneratedKeys="true" keyColumn="trip_id"
-            keyProperty="tripId">
-    insert into tb_trip (departure_time, route_id,
+  <insert id="insert" parameterType="com.che.model.Trip" useGeneratedKeys="true" keyColumn="trip_id"
+          keyProperty="tripId">
+    insert into tb_trip (order_id, departure_time, user_id,
+      route_id, trip_type, init_station_name, 
+      init_latitude, init_longitude, final_station_name, 
+      final_latitude, final_longitude, board_time, 
       create_time, update_time)
-    values (#{departureTime,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT},
+    values (#{orderId,jdbcType=BIGINT}, #{departureTime,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+      #{routeId,jdbcType=BIGINT}, #{tripType,jdbcType=TINYINT}, #{initStationName,jdbcType=VARCHAR}, 
+      #{initLatitude,jdbcType=REAL}, #{initLongitude,jdbcType=REAL}, #{finalStationName,jdbcType=VARCHAR}, 
+      #{finalLatitude,jdbcType=REAL}, #{finalLongitude,jdbcType=REAL}, #{boardTime,jdbcType=BIGINT}, 
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
   </insert>
-    <insert id="insertSelective" parameterType="com.che.model.Trip">
-        insert into tb_trip
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="tripId != null">
-                trip_id,
-            </if>
-            <if test="departureTime != null">
-                departure_time,
-            </if>
-            <if test="routeId != null">
-                route_id,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="tripId != null">
-                #{tripId,jdbcType=BIGINT},
-            </if>
-            <if test="departureTime != null">
-                #{departureTime,jdbcType=BIGINT},
-            </if>
-            <if test="routeId != null">
-                #{routeId,jdbcType=BIGINT},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=BIGINT},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=BIGINT},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.che.model.Trip">
-        update tb_trip
-        <set>
-            <if test="departureTime != null">
-                departure_time = #{departureTime,jdbcType=BIGINT},
-            </if>
-            <if test="routeId != null">
-                route_id = #{routeId,jdbcType=BIGINT},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=BIGINT},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=BIGINT},
-            </if>
-        </set>
-        where trip_id = #{tripId,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.che.model.Trip">
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.Trip" >
     update tb_trip
-    set departure_time = #{departureTime,jdbcType=BIGINT},
-      route_id = #{routeId,jdbcType=BIGINT},
-      create_time = #{createTime,jdbcType=BIGINT},
-      update_time = #{updateTime,jdbcType=BIGINT}
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="departureTime != null" >
+        departure_time = #{departureTime,jdbcType=BIGINT},
+      </if>
+      <if test="routeId != null" >
+        route_id = #{routeId,jdbcType=BIGINT},
+      </if>
+      <if test="tripType != null" >
+        trip_type = #{tripType,jdbcType=TINYINT},
+      </if>
+      <if test="initStationName != null" >
+        init_station_name = #{initStationName,jdbcType=VARCHAR},
+      </if>
+      <if test="initLatitude != null" >
+        init_latitude = #{initLatitude,jdbcType=REAL},
+      </if>
+      <if test="initLongitude != null" >
+        init_longitude = #{initLongitude,jdbcType=REAL},
+      </if>
+      <if test="finalStationName != null" >
+        final_station_name = #{finalStationName,jdbcType=VARCHAR},
+      </if>
+      <if test="finalLatitude != null" >
+        final_latitude = #{finalLatitude,jdbcType=REAL},
+      </if>
+      <if test="finalLongitude != null" >
+        final_longitude = #{finalLongitude,jdbcType=REAL},
+      </if>
+      <if test="boardTime != null" >
+        board_time = #{boardTime,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
     where trip_id = #{tripId,jdbcType=BIGINT}
   </update>
+
 </mapper>

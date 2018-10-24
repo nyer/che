@@ -7,9 +7,9 @@ public class Route {
 
     private Long tripTemplateId;
 
-    private Integer initStation;
+    private Long initStation;
 
-    private Integer finalStation;
+    private Long finalStation;
 
     private Long createTime;
 
@@ -39,19 +39,19 @@ public class Route {
         this.tripTemplateId = tripTemplateId;
     }
 
-    public Integer getInitStation() {
+    public Long getInitStation() {
         return initStation;
     }
 
-    public void setInitStation(Integer initStation) {
+    public void setInitStation(Long initStation) {
         this.initStation = initStation;
     }
 
-    public Integer getFinalStation() {
+    public Long getFinalStation() {
         return finalStation;
     }
 
-    public void setFinalStation(Integer finalStation) {
+    public void setFinalStation(Long finalStation) {
         this.finalStation = finalStation;
     }
 

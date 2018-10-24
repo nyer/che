@@ -13,7 +13,7 @@ public class TripOrderDaoImpl extends BaseDaoImpl implements TripOrderDao {
 
     @Override
     public int insert(TripOrder record) {
-        return 0;
+        return insert("TripOrderMapper.insert", record);
     }
 
     @Override

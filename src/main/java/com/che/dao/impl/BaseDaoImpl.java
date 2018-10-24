@@ -182,7 +182,7 @@ public class BaseDaoImpl extends SqlSessionDaoSupport implements SqlSession {
 
     <E> E one(List<E> list){
 
-        if (CollectionUtils.isEmpty(list)) {
+        if (CollectionUtils.isNotEmpty(list)) {
 
             return list.get(0);
         }

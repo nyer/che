@@ -8,4 +8,6 @@ public interface TripDao {
     int insert(Trip record);
 
     int updateByPrimaryKeySelective(Trip record);
+
+    int updateOrderId(Long tripId, Long orderId);
 }

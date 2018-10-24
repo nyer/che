@@ -20,7 +20,7 @@ public class RouteDaoImpl extends BaseDaoImpl implements RouteDao {
 
     @Override
     public int insert(Route record) {
-        return 0;
+        return insert("RouteMapper.insert", record);
     }
 
     @Override

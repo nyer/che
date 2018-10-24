@@ -1,10 +1,10 @@
 package com.che.dto;
 
-import com.che.constant.TripType;
-
 public class TripDto {
 
     private Long tripId;
+
+    private Long orderId;
 
     private Long departureTime;
 
@@ -18,6 +18,14 @@ public class TripDto {
 
     public void setTripId(Long tripId) {
         this.tripId = tripId;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public Long getDepartureTime() {
@@ -38,5 +46,9 @@ public class TripDto {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

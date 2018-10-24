@@ -18,10 +18,25 @@ public class RouteController {
 
     @ResponseBody
     @GetMapping("/add")
-    public Object addRoute(Route route) {
+    public Object addRoute(String name, Long initStationId, Long finalStationId) {
+
+        long current = System.currentTimeMillis();
+        Route route = new Route();
+        route.setRouteName(name);
+        route.setInitStation(initStationId);
+        route.setFinalStation(finalStationId);
+        route.setUpdateTime(current);
+        route.setCreateTime(current);
 
         routeService.addRoute(route);
 
         return route;
+    }
+    
+    @ResponseBody
+    @GetMapping("/get")
+    public Object get(Long routeId) {
+
+        return routeService.getRouteDto(routeId);
     }
 }

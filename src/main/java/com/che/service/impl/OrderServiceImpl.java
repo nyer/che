@@ -5,6 +5,7 @@ import com.che.constant.TripType;
 import com.che.dao.TripGorderDao;
 import com.che.dao.TripOrderDao;
 import com.che.dto.TripDto;
+import com.che.dto.TripOrderDto;
 import com.che.model.TripGorder;
 import com.che.model.TripOrder;
 import com.che.service.OrderService;
@@ -63,34 +64,19 @@ public class OrderServiceImpl implements OrderService, BeanSelfAware {
     }
 
     @Override
-    public TripOrder createOrder(TripDto trip) {
+    public void createOrder(TripOrderDto tripOrderDto) {
 
         Long current = System.currentTimeMillis();
         TripOrder order = new TripOrder();
-
-        order.setUserId(trip.getUserId());
-        order.setRouteId(trip.getRouteDto().getRouteId());
-        order.setTripId(trip.getTripId());
-
-        if (trip.getRouteDto().getRouteId() != null) {
-
-            order.setTripType(TripType.REGULAR_BUS.getType());
-        } else {
-            order.setTripType(TripType.FAST_CAR.getType());
-        }
-        order.setInitStationName(trip.getRouteDto().getInitStation().getStationName());
-        order.setInitLatitude(trip.getRouteDto().getInitStation().getLatitude());
-        order.setInitLongitude(trip.getRouteDto().getInitStation().getLongitude());
-        order.setFinalStationName(trip.getRouteDto().getFinalStation().getStationName());
-        order.setFinalLatitude(trip.getRouteDto().getFinalStation().getLatitude());
-        order.setFinalLongitude(trip.getRouteDto().getFinalStation().getLongitude());
+        order.setUserId(tripOrderDto.getUserId());
+        order.setTripId(tripOrderDto.getTripDto().getTripId());
         order.setStatus(OrderStatus.WAITING_CAR.getStatus());
         order.setCreateTime(current);
-        order.setCreateTime(current);
+        order.setUpdateTime(current);
 
         this.tripOrderDao.insert(order);
 
-        return order;
+        tripOrderDto.setOrderId(order.getOrderId());
     }
 
     @Override

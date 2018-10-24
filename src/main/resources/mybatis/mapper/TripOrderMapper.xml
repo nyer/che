@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="TripOrderMapper">
-    <resultMap id="BaseResultMap" type="com.che.model.TripOrder">
-        <id column="order_id" property="orderId" jdbcType="BIGINT"/>
-        <result column="route_id" property="routeId" jdbcType="BIGINT"/>
-        <result column="trip_id" property="tripId" jdbcType="BIGINT"/>
-        <result column="gorder_id" property="gorderId" jdbcType="BIGINT"/>
-        <result column="user_id" property="userId" jdbcType="BIGINT"/>
-        <result column="trip_type" property="tripType" jdbcType="TINYINT"/>
-        <result column="init_station_name" property="initStationName" jdbcType="VARCHAR"/>
-        <result column="init_latitude" property="initLatitude" jdbcType="REAL"/>
-        <result column="init_longitude" property="initLongitude" jdbcType="REAL"/>
-        <result column="final_station_name" property="finalStationName" jdbcType="VARCHAR"/>
-        <result column="final_latitude" property="finalLatitude" jdbcType="REAL"/>
-        <result column="final_longitude" property="finalLongitude" jdbcType="REAL"/>
-        <result column="board_time" property="boardTime" jdbcType="BIGINT"/>
-        <result column="status" property="status" jdbcType="TINYINT"/>
-        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
-        <result column="update_time" property="updateTime" jdbcType="BIGINT"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    order_id, route_id, trip_id, gorder_id, user_id, trip_type, init_station_name, init_latitude,
-    init_longitude, final_station_name, final_latitude, final_longitude, board_time, 
-    status, create_time, update_time
+<mapper namespace="TripOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.TripOrder" >
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="trip_id" property="tripId" jdbcType="BIGINT" />
+    <result column="gorder_id" property="gorderId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, trip_id, gorder_id, user_id, status, create_time, update_time
   </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
-        select
-        <include refid="Base_Column_List"/>
-        from tb_trip_order
-        where order_id = #{orderId,jdbcType=BIGINT}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_trip_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_trip_order
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-
-    <insert id="insert" parameterType="com.che.model.TripOrder" useGeneratedKeys="true" keyColumn="order_id"
-            keyProperty="orderId">
-    insert into tb_trip_order (order_id, route_id, trip_id, gorder_id,
-      user_id, trip_type, init_station_name, 
-      init_latitude, init_longitude, final_station_name, 
-      final_latitude, final_longitude, board_time, 
-      status, create_time, update_time
-      )
-    values (#{orderId,jdbcType=BIGINT}, #{routeId,jdbcType=BIGINT}, #{tripId,jdbcType=BIGINT}, #{gorderId,jdbcType=BIGINT},
-      #{userId,jdbcType=BIGINT}, #{tripType,jdbcType=TINYINT}, #{initStationName,jdbcType=VARCHAR}, 
-      #{initLatitude,jdbcType=REAL}, #{initLongitude,jdbcType=REAL}, #{finalStationName,jdbcType=VARCHAR}, 
-      #{finalLatitude,jdbcType=REAL}, #{finalLongitude,jdbcType=REAL}, #{boardTime,jdbcType=BIGINT}, 
-      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
-      )
+  <insert id="insert" parameterType="com.che.model.TripOrder" useGeneratedKeys="true" keyColumn="order_id"
+          keyProperty="orderId">
+    insert into tb_trip_order (order_id, trip_id, gorder_id, 
+      user_id, status, create_time, 
+      update_time)
+    values (#{orderId,jdbcType=BIGINT}, #{tripId,jdbcType=BIGINT}, #{gorderId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT})
   </insert>
-
-    <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripOrder">
-        update tb_trip_order
-        <set>
-            <if test="tripId != null">
-                trip_id = #{tripId,jdbcType=BIGINT},
-            </if>
-            <if test="gorderId != null">
-                gorder_id = #{gorderId,jdbcType=BIGINT},
-            </if>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=BIGINT},
-            </if>
-            <if test="tripType != null">
-                trip_type = #{tripType,jdbcType=TINYINT},
-            </if>
-            <if test="initStationName != null">
-                init_station_name = #{initStationName,jdbcType=VARCHAR},
-            </if>
-            <if test="initLatitude != null">
-                init_latitude = #{initLatitude,jdbcType=REAL},
-            </if>
-            <if test="initLongitude != null">
-                init_longitude = #{initLongitude,jdbcType=REAL},
-            </if>
-            <if test="finalStationName != null">
-                final_station_name = #{finalStationName,jdbcType=VARCHAR},
-            </if>
-            <if test="finalLatitude != null">
-                final_latitude = #{finalLatitude,jdbcType=REAL},
-            </if>
-            <if test="finalLongitude != null">
-                final_longitude = #{finalLongitude,jdbcType=REAL},
-            </if>
-            <if test="boardTime != null">
-                board_time = #{boardTime,jdbcType=BIGINT},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=TINYINT},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=BIGINT},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=BIGINT},
-            </if>
-        </set>
-        where order_id = #{orderId,jdbcType=BIGINT}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.che.model.TripOrder">
+  <insert id="insertSelective" parameterType="com.che.model.TripOrder" >
+    insert into tb_trip_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="tripId != null" >
+        trip_id,
+      </if>
+      <if test="gorderId != null" >
+        gorder_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="tripId != null" >
+        #{tripId,jdbcType=BIGINT},
+      </if>
+      <if test="gorderId != null" >
+        #{gorderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripOrder" >
+    update tb_trip_order
+    <set >
+      <if test="tripId != null" >
+        trip_id = #{tripId,jdbcType=BIGINT},
+      </if>
+      <if test="gorderId != null" >
+        gorder_id = #{gorderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.che.model.TripOrder" >
     update tb_trip_order
     set trip_id = #{tripId,jdbcType=BIGINT},
       gorder_id = #{gorderId,jdbcType=BIGINT},
       user_id = #{userId,jdbcType=BIGINT},
-      trip_type = #{tripType,jdbcType=TINYINT},
-      init_station_name = #{initStationName,jdbcType=VARCHAR},
-      init_latitude = #{initLatitude,jdbcType=REAL},
-      init_longitude = #{initLongitude,jdbcType=REAL},
-      final_station_name = #{finalStationName,jdbcType=VARCHAR},
-      final_latitude = #{finalLatitude,jdbcType=REAL},
-      final_longitude = #{finalLongitude,jdbcType=REAL},
-      board_time = #{boardTime,jdbcType=BIGINT},
       status = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=BIGINT}

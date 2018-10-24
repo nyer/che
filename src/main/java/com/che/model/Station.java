@@ -1,7 +1,7 @@
 package com.che.model;
 
 public class Station {
-    private Integer stationId;
+    private Long stationId;
 
     private String stationName;
 
@@ -13,11 +13,11 @@ public class Station {
 
     private Long updateTime;
 
-    public Integer getStationId() {
+    public Long getStationId() {
         return stationId;
     }
 
-    public void setStationId(Integer stationId) {
+    public void setStationId(Long stationId) {
         this.stationId = stationId;
     }
 

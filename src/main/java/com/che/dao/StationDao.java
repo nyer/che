@@ -7,5 +7,7 @@ public interface StationDao {
 
     int insert(Station record);
 
+    Station selectByStationId(Long stationId);
+
     int updateByPrimaryKeySelective(Station record);
 }

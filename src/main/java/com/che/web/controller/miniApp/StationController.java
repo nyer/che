@@ -1,5 +1,6 @@
 package com.che.web.controller.miniApp;
 
+import com.che.dto.StationDto;
 import com.che.model.Station;
 import com.che.service.StationService;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,21 @@ public class StationController {
 
     @ResponseBody
     @GetMapping("/add")
-    public Object addStation(Station station) {
+    public Object addStation(String name, Float lat, Float longt) {
 
+        StationDto station = new StationDto();
+        station.setStationName(name);
+        station.setLatitude(lat);
+        station.setLongitude(longt);
         stationService.addStation(station);
 
         return station;
+    }
+
+    @ResponseBody
+    @GetMapping("/get")
+    public Object get(long stationId) {
+
+        return stationService.getStation(stationId);
     }
 }
