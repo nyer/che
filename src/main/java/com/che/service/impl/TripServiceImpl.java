@@ -1,18 +1,17 @@
 package com.che.service.impl;
 
-import com.che.constant.OrderStatus;
 import com.che.constant.TripType;
 import com.che.dao.TripDao;
 import com.che.dto.RouteDto;
+import com.che.dto.TripDriverOrderDto;
 import com.che.dto.TripDto;
 import com.che.dto.TripOrderDto;
 import com.che.model.Trip;
-import com.che.model.TripOrder;
+import com.che.model.TripDriverOrder;
 import com.che.service.OrderService;
 import com.che.service.RouteService;
 import com.che.service.TripService;
 import com.che.service.bean.BeanSelfAware;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +33,44 @@ public class TripServiceImpl implements TripService, BeanSelfAware {
 
     @Transactional
     @Override
+    public void doCreatePassengerTrip(TripDto tripDto) {
+
+        this.doCreateTrip(tripDto);
+        // 创建行程订单
+        TripOrderDto tripOrderDto = new TripOrderDto();
+        tripOrderDto.setTripDto(tripDto);
+        tripOrderDto.setUserId(tripDto.getUserId());
+
+        if (tripDto.getDriverTripId() != null) {
+
+            TripDriverOrder tripDriverOrder = orderService.getDriverOrderByTripId(tripDto.getDriverTripId());
+            if (tripDriverOrder != null) {
+                tripOrderDto.setDriverOrderId(tripDriverOrder.getOrderId());
+            }
+        }
+        orderService.createPassengerOrder(tripOrderDto);
+
+        tripDto.setOrderId(tripOrderDto.getOrderId());
+        tripDao.updateOrderId(tripDto.getTripId(), tripDto.getOrderId());
+    }
+
+    @Transactional
+    @Override
+    public void doCreateDriverTrip(TripDto tripDto) {
+
+        this.doCreateTrip(tripDto);
+
+        // 创建行程订单
+        TripDriverOrderDto tripOrderDto = new TripDriverOrderDto();
+        tripOrderDto.setTripDto(tripDto);
+        tripOrderDto.setUserId(tripDto.getUserId());
+
+        orderService.createDriverOrder(tripOrderDto);
+
+        tripDto.setOrderId(tripOrderDto.getOrderId());
+        tripDao.updateOrderId(tripDto.getTripId(), tripDto.getOrderId());
+    }
+
     public void doCreateTrip(TripDto tripDto) {
 
         Long current = System.currentTimeMillis();
@@ -43,6 +80,7 @@ public class TripServiceImpl implements TripService, BeanSelfAware {
         trip.setUserId(tripDto.getUserId());
         trip.setRouteId(tripDto.getRouteDto().getRouteId());
         trip.setDepartureTime(tripDto.getDepartureTime());
+        trip.setPassengerCount(tripDto.getPassengerCount());
 
         if (tripDto.getRouteDto().getRouteId() != null) {
 
@@ -61,27 +99,34 @@ public class TripServiceImpl implements TripService, BeanSelfAware {
 
         this.tripDao.insert(trip);
         tripDto.setTripId(trip.getTripId());
-
-        // 创建行程订单
-        TripOrderDto tripOrderDto = new TripOrderDto();
-        tripOrderDto.setTripDto(tripDto);
-        tripOrderDto.setUserId(tripDto.getUserId());
-        orderService.createOrder(tripOrderDto);
-
-        tripDto.setOrderId(tripOrderDto.getOrderId());
-        tripDao.updateOrderId(tripDto.getTripId(), tripDto.getOrderId());
     }
 
     @Override
-    public TripDto createTrip(Long userId, Long routeId, Long departureTime) {
+    public TripDto createPassengerTrip(Long userId, Long routeId, Integer passengerCount, Long driverTripId, Long departureTime) {
+
+        TripDto trip = new TripDto();
+        RouteDto route = routeService.getRouteDto(routeId);
+        trip.setUserId(userId);
+        trip.setDriverTripId(driverTripId);
+        trip.setRouteDto(route);
+        trip.setDepartureTime(departureTime);
+        trip.setPassengerCount(passengerCount);
+
+        self.doCreatePassengerTrip(trip);
+        return trip;
+    }
+
+    @Override
+    public TripDto createDriverTrip(Long userId, Long routeId, Integer passengerCount, Long departureTime) {
 
         TripDto trip = new TripDto();
         RouteDto route = routeService.getRouteDto(routeId);
         trip.setUserId(userId);
         trip.setRouteDto(route);
         trip.setDepartureTime(departureTime);
+        trip.setPassengerCount(passengerCount);
 
-        self.doCreateTrip(trip);
+        self.doCreateDriverTrip(trip);
         return trip;
     }
 

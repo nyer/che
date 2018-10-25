@@ -27,6 +27,8 @@ public class Trip {
 
     private Long boardTime;
 
+    private Integer passengerCount;
+
     private Long createTime;
 
     private Long updateTime;
@@ -133,6 +135,14 @@ public class Trip {
 
     public void setBoardTime(Long boardTime) {
         this.boardTime = boardTime;
+    }
+
+    public Integer getPassengerCount() {
+        return passengerCount;
+    }
+
+    public void setPassengerCount(Integer passengerCount) {
+        this.passengerCount = passengerCount;
     }
 
     public Long getCreateTime() {

@@ -22,10 +22,19 @@ public class TripController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public Object add(Long userId, Long routeId, String departureTime) throws Exception {
+    public Object add(Long userId, Long routeId, Integer passengerCount, Long driverTripId, String departureTime) throws Exception {
 
-        Long departureTimeInMillis = DateUtils.parseDate(departureTime, "yyyy-MM-dd HH:mm:ss").getTime();
-        TripDto tripDto = tripService.createTrip(userId, routeId, departureTimeInMillis);
+        Long departureTimeInMillis = DateUtils.parseDate(departureTime, "yyyy-MM-dd HH:mm").getTime();
+        TripDto tripDto = tripService.createPassengerTrip(userId, routeId, passengerCount, driverTripId, departureTimeInMillis);
+        return tripDto;
+    }
+
+    @ResponseBody
+    @RequestMapping("/driver/add")
+    public Object addDriverTip(Long userId, Long routeId, Integer seatCount, String departureTime) throws Exception {
+
+        Long departureTimeInMillis = DateUtils.parseDate(departureTime, "yyyy-MM-dd HH:mm").getTime();
+        TripDto tripDto = tripService.createDriverTrip(userId, routeId, seatCount, departureTimeInMillis);
         return tripDto;
     }
 }

@@ -15,12 +15,13 @@
     <result column="final_latitude" property="finalLatitude" jdbcType="REAL" />
     <result column="final_longitude" property="finalLongitude" jdbcType="REAL" />
     <result column="board_time" property="boardTime" jdbcType="BIGINT" />
+    <result column="passenger_count" property="passengerCount" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
     trip_id, order_id, departure_time, user_id, route_id, trip_type, init_station_name, init_latitude,
-    init_longitude, final_station_name, final_latitude, final_longitude, board_time, 
+    init_longitude, final_station_name, final_latitude, final_longitude, board_time, passenger_count,
     create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
@@ -29,21 +30,17 @@
     from tb_trip
     where trip_id = #{tripId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from tb_trip
-    where trip_id = #{tripId,jdbcType=BIGINT}
-  </delete>
   <insert id="insert" parameterType="com.che.model.Trip" useGeneratedKeys="true" keyColumn="trip_id"
           keyProperty="tripId">
     insert into tb_trip (order_id, departure_time, user_id,
       route_id, trip_type, init_station_name, 
       init_latitude, init_longitude, final_station_name, 
-      final_latitude, final_longitude, board_time, 
+      final_latitude, final_longitude, board_time, passenger_count,
       create_time, update_time)
     values (#{orderId,jdbcType=BIGINT}, #{departureTime,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
       #{routeId,jdbcType=BIGINT}, #{tripType,jdbcType=TINYINT}, #{initStationName,jdbcType=VARCHAR}, 
       #{initLatitude,jdbcType=REAL}, #{initLongitude,jdbcType=REAL}, #{finalStationName,jdbcType=VARCHAR}, 
-      #{finalLatitude,jdbcType=REAL}, #{finalLongitude,jdbcType=REAL}, #{boardTime,jdbcType=BIGINT}, 
+      #{finalLatitude,jdbcType=REAL}, #{finalLongitude,jdbcType=REAL}, #{boardTime,jdbcType=BIGINT}, #{passengerCount,jdbcType=INTEGER},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
   </insert>
 
@@ -82,6 +79,9 @@
       </if>
       <if test="boardTime != null" >
         board_time = #{boardTime,jdbcType=BIGINT},
+      </if>
+      <if test="passengerCount != null" >
+        passenger_count = #{passengerCount,jdbcType=INTEGER},
       </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=BIGINT},

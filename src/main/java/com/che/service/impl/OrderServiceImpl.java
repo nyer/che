@@ -1,20 +1,17 @@
 package com.che.service.impl;
 
 import com.che.constant.OrderStatus;
-import com.che.constant.TripType;
-import com.che.dao.TripGorderDao;
+import com.che.dao.TripDriverOrderDao;
 import com.che.dao.TripOrderDao;
-import com.che.dto.TripDto;
+import com.che.dto.TripDriverOrderDto;
 import com.che.dto.TripOrderDto;
-import com.che.model.TripGorder;
+import com.che.model.TripDriverOrder;
 import com.che.model.TripOrder;
 import com.che.service.OrderService;
 import com.che.service.bean.BeanSelfAware;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * 订单Service
@@ -27,49 +24,39 @@ public class OrderServiceImpl implements OrderService, BeanSelfAware {
     private TripOrderDao tripOrderDao;
 
     @Resource
-    private TripGorderDao tripGorderDao;
+    private TripDriverOrderDao tripDriverOrderDao;
 
     private OrderService self;
 
     @Override
-    public TripGorder createGorder(Long userId, List<TripOrder> orders) {
+    public TripDriverOrder getDriverOrderByTripId(Long tripId) {
+
+        return tripDriverOrderDao.selectByTripId(tripId);
+    }
+
+    @Override
+    public void createDriverOrder(TripDriverOrderDto tripDriverOrderDto) {
 
         Long current = System.currentTimeMillis();
-        TripGorder gorder = new TripGorder();
-        gorder.setGorderUserId(userId);
-        gorder.setOrders(orders);
-        gorder.setCreateTime(current);
-        gorder.setUpdateTime(current);
+        TripDriverOrder order = new TripDriverOrder();
+        order.setUserId(tripDriverOrderDto.getUserId());
+        order.setTripId(tripDriverOrderDto.getTripDto().getTripId());
+        order.setCreateTime(current);
+        order.setUpdateTime(current);
 
-        self.doCreateGorder(gorder);
-        return gorder;
-    }
+        this.tripDriverOrderDao.insert(order);
 
-    @Transactional
-    @Override
-    public void doCreateGorder(TripGorder gorder) {
-
-        this.tripGorderDao.insert(gorder);
-
-        for (TripOrder order : gorder.getOrders()) {
-
-            order.setGorderId(gorder.getGorderId());
-            TripOrder temp = new TripOrder();
-            temp.setOrderId(order.getOrderId());
-            temp.setGorderId(gorder.getGorderId());
-            temp.setUpdateTime(gorder.getUpdateTime());
-
-            this.tripOrderDao.updateByPrimaryKeySelective(temp);
-        }
+        tripDriverOrderDto.setOrderId(order.getOrderId());
     }
 
     @Override
-    public void createOrder(TripOrderDto tripOrderDto) {
+    public void createPassengerOrder(TripOrderDto tripOrderDto) {
 
         Long current = System.currentTimeMillis();
         TripOrder order = new TripOrder();
         order.setUserId(tripOrderDto.getUserId());
         order.setTripId(tripOrderDto.getTripDto().getTripId());
+        order.setDriverOrderId(tripOrderDto.getDriverOrderId());
         order.setStatus(OrderStatus.WAITING_CAR.getStatus());
         order.setCreateTime(current);
         order.setUpdateTime(current);

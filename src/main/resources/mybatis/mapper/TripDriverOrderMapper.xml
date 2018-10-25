@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TripDriverOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.TripDriverOrder" >
+    <id column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="trip_id" property="tripId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    order_id, trip_id, user_id, create_time, update_time
+  </sql>
+
+  <select id="selectByCond" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_trip_driver_order
+    <where>
+
+      <if test="tripId != null">
+          and trip_id = #{tripId, jdbcType=BIGINT}
+      </if>
+      <if test="orderId != null">
+        and order_id = #{orderId,jdbcType=BIGINT}
+      </if>
+
+      <if test="orderIdList != null">
+
+        and order_id in
+        <foreach collection="orderIdList" item="item" open="(" separator="," close=")">
+          #{item, ,jdbcType=BIGINT}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_trip_driver_order
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.che.model.TripDriverOrder" useGeneratedKeys="true" keyColumn="order_id" keyProperty="orderId" >
+    insert into tb_trip_driver_order (trip_id, user_id,
+      create_time, update_time)
+    values (#{tripId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripDriverOrder" >
+    update tb_trip_driver_order
+    <set >
+      <if test="tripId != null" >
+        trip_id = #{tripId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=BIGINT}
+  </update>
+</mapper>
