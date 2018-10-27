@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TripCarMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.TripCar" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="trip_id" property="tripId" jdbcType="BIGINT" />
+    <result column="spare_seat_count" property="spareSeatCount" jdbcType="INTEGER" />
+    <result column="car_source" property="carSource" jdbcType="TINYINT" />
+    <result column="car_license" property="carLicense" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, trip_id, spare_seat_count, car_source, car_license, phone, create_time, update_time
+  </sql>
+  <select id="selectByCond" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_trip_car
+    <where>
+
+      <if test="tripId != null">
+        and trip_id = #{tripId, jdbcType=BIGINT}
+      </if>
+
+    </where>
+  </select>
+
+  <update id="decSeatCount" parameterType="map">
+
+    update tb_trip_car
+    set spare_seat_count = spare_seat_count - #{decCount}
+    where trip_id = #{tripId} and spare_seat_count >= #{decCount}
+
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_trip_car
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.che.model.TripCar" >
+    insert into tb_trip_car (trip_id, spare_seat_count,
+      car_source, car_license, phone, 
+      create_time, update_time)
+    values (#{tripId,jdbcType=BIGINT}, #{spareSeatCount,jdbcType=INTEGER},
+      #{carSource,jdbcType=TINYINT}, #{carLicense,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripCar" >
+    update tb_trip_car
+    <set >
+      <if test="tripId != null" >
+        trip_id = #{tripId,jdbcType=BIGINT},
+      </if>
+      <if test="spareSeatCount != null" >
+        spare_seat_count = #{spareSeatCount,jdbcType=INTEGER},
+      </if>
+      <if test="carSource != null" >
+        car_source = #{carSource,jdbcType=TINYINT},
+      </if>
+      <if test="carLicense != null" >
+        car_license = #{carLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
