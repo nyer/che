@@ -1,15 +1,11 @@
 package com.che.model;
 
-public class TripDriverOrder {
+public class Order {
     private Long orderId;
 
-    private Long gorderId;
+    private Integer busType;
 
-    private Long passengerOrderId;
-
-    private Long tripId;
-
-    private Long driverTripId;
+    private String busOrderId;
 
     private Long userId;
 
@@ -27,36 +23,20 @@ public class TripDriverOrder {
         this.orderId = orderId;
     }
 
-    public Long getGorderId() {
-        return gorderId;
+    public Integer getBusType() {
+        return busType;
     }
 
-    public void setGorderId(Long gorderId) {
-        this.gorderId = gorderId;
+    public void setBusType(Integer busType) {
+        this.busType = busType;
     }
 
-    public Long getPassengerOrderId() {
-        return passengerOrderId;
+    public String getBusOrderId() {
+        return busOrderId;
     }
 
-    public void setPassengerOrderId(Long passengerOrderId) {
-        this.passengerOrderId = passengerOrderId;
-    }
-
-    public Long getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(Long tripId) {
-        this.tripId = tripId;
-    }
-
-    public Long getDriverTripId() {
-        return driverTripId;
-    }
-
-    public void setDriverTripId(Long driverTripId) {
-        this.driverTripId = driverTripId;
+    public void setBusOrderId(String busOrderId) {
+        this.busOrderId = busOrderId;
     }
 
     public Long getUserId() {

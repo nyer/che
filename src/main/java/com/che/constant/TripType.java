@@ -2,8 +2,8 @@ package com.che.constant;
 
 public enum TripType {
 
-    REGULAR_BUS(1, "班车"),
-    FAST_CAR(2, "快车"),
+    DRIVER(1, "车主"),
+    PASSENGER(2, "乘客"),
     ;
 
     private Integer type;

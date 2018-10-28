@@ -2,7 +2,13 @@ package com.che.dao.impl;
 
 import com.che.dao.TripDao;
 import com.che.model.Trip;
+import com.che.model.TripCar;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class TripDaoImpl extends BaseDaoImpl implements TripDao {
@@ -29,5 +35,20 @@ public class TripDaoImpl extends BaseDaoImpl implements TripDao {
         trip.setTripId(tripId);
         trip.setOrderId(orderId);
         return this.updateByPrimaryKeySelective(trip);
+    }
+
+    @Override
+    public List<Trip> selectByTripIdList(List<Long> tripIdList) {
+        return selectByCond(newCond("tripIdList", tripIdList));
+    }
+
+    List<Trip> selectByCond(Map<String, Object> cond) {
+
+        if (MapUtils.isEmpty(cond)) {
+
+            return Collections.emptyList();
+        }
+
+        return selectList("TripMapper.selectByCond", cond);
     }
 }

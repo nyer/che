@@ -1,15 +1,15 @@
 package com.che.constant;
 
-public enum OrderStatus {
+public enum DriverGorderStatus {
 
-    UNPAY(1, "待支付"),
-    FINISH(2, "完成"),
-    CANCEL(3, "取消"),
+    NOT_START(1, "未开始"),
+    SERVING(2, "进行中"),
+    FINISHED(3, "完成"),
     ;
     private int status;
     private String desc;
 
-    OrderStatus(int status, String desc) {
+    DriverGorderStatus(int status, String desc) {
         this.status = status;
         this.desc = desc;
     }

@@ -4,13 +4,13 @@ public class TripDto {
 
     private Long tripId;
 
-    private Long orderId;
-
-    private Long driverTripId;
+    private Integer tripType;
 
     private Long departureTime;
 
-    private Integer passengerCount;
+    private TripCarDto tripCarDto;
+
+    private TripPassengerDto tripPassengerDto;
 
     private RouteDto routeDto;
 
@@ -24,20 +24,12 @@ public class TripDto {
         this.tripId = tripId;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Integer getTripType() {
+        return tripType;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Long getDriverTripId() {
-        return driverTripId;
-    }
-
-    public void setDriverTripId(Long driverTripId) {
-        this.driverTripId = driverTripId;
+    public void setTripType(Integer tripType) {
+        this.tripType = tripType;
     }
 
     public Long getDepartureTime() {
@@ -48,12 +40,20 @@ public class TripDto {
         this.departureTime = departureTime;
     }
 
-    public Integer getPassengerCount() {
-        return passengerCount;
+    public TripCarDto getTripCarDto() {
+        return tripCarDto;
     }
 
-    public void setPassengerCount(Integer passengerCount) {
-        this.passengerCount = passengerCount;
+    public void setTripCarDto(TripCarDto tripCarDto) {
+        this.tripCarDto = tripCarDto;
+    }
+
+    public TripPassengerDto getTripPassengerDto() {
+        return tripPassengerDto;
+    }
+
+    public void setTripPassengerDto(TripPassengerDto tripPassengerDto) {
+        this.tripPassengerDto = tripPassengerDto;
     }
 
     public RouteDto getRouteDto() {

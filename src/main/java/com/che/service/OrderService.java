@@ -1,20 +1,17 @@
 package com.che.service;
 
-import com.che.dto.TripDriverOrderDto;
-import com.che.dto.TripOrderDto;
-import com.che.model.TripDriverOrder;
+import com.che.dto.OrderDto;
 
+/**
+ * 前台订单Service
+ * @author leiting
+ */
 public interface OrderService {
 
-
-    TripDriverOrder getDriverOrderByTripId(Long tripId);
-
-    void createDriverOrder(TripDriverOrderDto tripDriverOrderDto);
-
     /**
-     * 创建班次订单
-     * @param tripOrder
+     * 创建前台订单
+     * @param order
      * @return
      */
-    void createPassengerOrder(TripOrderDto tripOrder);
+    void createOrder(OrderDto orderDto);
 }

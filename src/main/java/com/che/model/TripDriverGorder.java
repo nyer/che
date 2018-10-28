@@ -1,11 +1,9 @@
 package com.che.model;
 
-public class TripOrder {
-    private Long orderId;
+public class TripDriverGorder {
+    private Long gorderId;
 
     private Long tripId;
-
-    private Long driverOrderId;
 
     private Long userId;
 
@@ -15,12 +13,12 @@ public class TripOrder {
 
     private Long updateTime;
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getGorderId() {
+        return gorderId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setGorderId(Long gorderId) {
+        this.gorderId = gorderId;
     }
 
     public Long getTripId() {
@@ -29,14 +27,6 @@ public class TripOrder {
 
     public void setTripId(Long tripId) {
         this.tripId = tripId;
-    }
-
-    public Long getDriverOrderId() {
-        return driverOrderId;
-    }
-
-    public void setDriverOrderId(Long driverOrderId) {
-        this.driverOrderId = driverOrderId;
     }
 
     public Long getUserId() {

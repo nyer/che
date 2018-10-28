@@ -1,12 +1,12 @@
 package com.che.dto;
 
-public class TripOrderDto {
+public class OrderDto {
 
     private Long orderId;
 
-    private TripDto tripDto;
+    private Integer busType;
 
-    private Long driverOrderId;
+    private String busOrderId;
 
     private Long userId;
 
@@ -20,20 +20,20 @@ public class TripOrderDto {
         this.orderId = orderId;
     }
 
-    public TripDto getTripDto() {
-        return tripDto;
+    public Integer getBusType() {
+        return busType;
     }
 
-    public void setTripDto(TripDto tripDto) {
-        this.tripDto = tripDto;
+    public void setBusType(Integer busType) {
+        this.busType = busType;
     }
 
-    public Long getDriverOrderId() {
-        return driverOrderId;
+    public String getBusOrderId() {
+        return busOrderId;
     }
 
-    public void setDriverOrderId(Long driverOrderId) {
-        this.driverOrderId = driverOrderId;
+    public void setBusOrderId(String busOrderId) {
+        this.busOrderId = busOrderId;
     }
 
     public Long getUserId() {

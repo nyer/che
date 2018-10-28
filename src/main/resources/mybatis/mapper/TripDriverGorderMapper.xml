@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TripDriverGorderMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.TripDriverGorder" >
+    <id column="gorder_id" property="gorderId" jdbcType="BIGINT" />
+    <result column="trip_id" property="tripId" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gorder_id, trip_id, user_id, status, create_time, update_time
+  </sql>
+
+  <select id="selectByCond" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_trip_driver_gorder
+    <where>
+      <if test="gorderId != null">
+        gorder_id = #{gorderId,jdbcType=BIGINT}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insert" parameterType="com.che.model.TripDriverGorder" useGeneratedKeys="true" keyColumn="gorder_id" keyProperty="gorderId">
+    insert into tb_trip_driver_gorder (trip_id, user_id,
+      status, create_time, update_time
+      )
+    values (#{tripId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}
+      )
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripDriverGorder" >
+    update tb_trip_driver_gorder
+    <set >
+      <if test="tripId != null" >
+        trip_id = #{tripId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where gorder_id = #{gorderId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
