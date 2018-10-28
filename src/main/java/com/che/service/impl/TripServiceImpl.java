@@ -12,6 +12,7 @@ import com.che.model.Trip;
 import com.che.model.TripCar;
 import com.che.model.TripPassenger;
 import com.che.service.RouteService;
+import com.che.service.TripOrderService;
 import com.che.service.TripService;
 import com.che.service.bean.BeanSelfAware;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,34 @@ public class TripServiceImpl implements TripService, BeanSelfAware {
     @Resource
     private RouteService routeService;
 
+    @Resource
+    private TripOrderService tripOrderService;
+
     private TripService self;
+
+    @Override
+    public void departureStationArrived(Long orderId) {
+
+        tripOrderService.departureStationArrived(orderId);
+    }
+
+    @Override
+    public void passengerOnBoard(Long orderId) {
+
+        tripOrderService.passengerOnBoard(orderId);
+    }
+
+    @Override
+    public void destStationArrived(Long orderId) {
+
+        tripOrderService.destStationArrived(orderId);
+    }
+
+    @Override
+    public void cancelOrder(Long orderId) {
+
+        tripOrderService.cancelOrder(orderId);
+    }
 
     @Override
     public List<Trip> getTripList(List<Long> tripIdList) {

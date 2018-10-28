@@ -1,23 +1,20 @@
-package com.che.model;
+package com.che.dto;
 
-public class TripDriverOrder {
+public class TripOrderDto {
+
     private Long orderId;
 
     private Long gorderId;
 
     private Long passengerOrderId;
 
-    private Long tripId;
-
     private Long driverTripId;
+
+    private Long tripId;
 
     private Long userId;
 
     private Integer status;
-
-    private Long createTime;
-
-    private Long updateTime;
 
     public Long getOrderId() {
         return orderId;
@@ -43,20 +40,20 @@ public class TripDriverOrder {
         this.passengerOrderId = passengerOrderId;
     }
 
-    public Long getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(Long tripId) {
-        this.tripId = tripId;
-    }
-
     public Long getDriverTripId() {
         return driverTripId;
     }
 
     public void setDriverTripId(Long driverTripId) {
         this.driverTripId = driverTripId;
+    }
+
+    public Long getTripId() {
+        return tripId;
+    }
+
+    public void setTripId(Long tripId) {
+        this.tripId = tripId;
     }
 
     public Long getUserId() {
@@ -73,21 +70,5 @@ public class TripDriverOrder {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Long createTime) {
-        this.createTime = createTime;
-    }
-
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
     }
 }

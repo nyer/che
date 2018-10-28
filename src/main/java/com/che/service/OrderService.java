@@ -1,6 +1,7 @@
 package com.che.service;
 
 import com.che.dto.OrderDto;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 前台订单Service
@@ -14,4 +15,10 @@ public interface OrderService {
      * @return
      */
     void createOrder(OrderDto orderDto);
+
+    @Transactional
+    void payOrder(Long orderId);
+
+    @Transactional
+    void cancelOrder(Long orderId);
 }

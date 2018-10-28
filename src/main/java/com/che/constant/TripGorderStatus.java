@@ -1,6 +1,6 @@
 package com.che.constant;
 
-public enum DriverGorderStatus {
+public enum TripGorderStatus {
 
     NOT_START(1, "未开始"),
     SERVING(2, "进行中"),
@@ -9,7 +9,7 @@ public enum DriverGorderStatus {
     private int status;
     private String desc;
 
-    DriverGorderStatus(int status, String desc) {
+    TripGorderStatus(int status, String desc) {
         this.status = status;
         this.desc = desc;
     }

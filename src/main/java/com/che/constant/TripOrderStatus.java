@@ -1,6 +1,10 @@
 package com.che.constant;
 
-public enum DriverOrderStatus {
+import com.google.common.collect.Maps;
+
+import java.util.Map;
+
+public enum TripOrderStatus {
 
     UN_ARRIVE(1, "待到达乘客接送点"),
     ARRIVED(2, "到达乘客接送点"),
@@ -8,10 +12,19 @@ public enum DriverOrderStatus {
     DEST_ARRIVED(4, "到达乘客终点"),
     CANCEL(5, "取消"),
     ;
+
+    static Map<Integer, TripOrderStatus> map = Maps.newHashMap();
+    static {
+
+        for (TripOrderStatus tripOrderStatus : values()) {
+
+            map.put(tripOrderStatus.getStatus(), tripOrderStatus);
+        }
+    }
     private int status;
     private String desc;
 
-    DriverOrderStatus(int status, String desc) {
+    TripOrderStatus(int status, String desc) {
         this.status = status;
         this.desc = desc;
     }
@@ -22,5 +35,10 @@ public enum DriverOrderStatus {
 
     public String getDesc() {
         return desc;
+    }
+
+    public static TripOrderStatus getByStatus(Integer status) {
+
+        return map.get(status);
     }
 }

@@ -20,6 +20,42 @@ public class TripController {
     private TripService tripService;
 
     @ResponseBody
+    @RequestMapping("/departureStationArrived")
+    public Object departureStationArrived(Long orderId) {
+
+        tripService.departureStationArrived(orderId);
+
+        return "OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/passengerOnBoard")
+    public Object passengerOnBoard(Long orderId) {
+
+        tripService.passengerOnBoard(orderId);
+
+        return "OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/destStationArrived")
+    public Object destStationArrived(Long orderId) {
+
+        tripService.destStationArrived(orderId);
+
+        return "OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/cancelOrder")
+    public Object cancelOrder(Long orderId) {
+
+        tripService.cancelOrder(orderId);
+
+        return "OK";
+    }
+
+    @ResponseBody
     @RequestMapping("/addByRoute")
     public Object addByRoute(Long userId, Long routeId, Integer passengerCount, BigDecimal moneyAmount, String phone, String departureTime) throws Exception {
 

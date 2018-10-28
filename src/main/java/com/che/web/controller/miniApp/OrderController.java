@@ -1,5 +1,6 @@
 package com.che.web.controller.miniApp;
 
+import com.che.service.OrderService;
 import com.che.service.TripOrderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,18 +8,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
-@RequestMapping("/trip/order")
+@RequestMapping("/order")
 @Controller
-public class TripOrderController {
+public class OrderController {
 
     @Resource
-    private TripOrderService orderService;
+    private TripOrderService tripOrderService;
+
+    @Resource
+    private OrderService orderService;
 
     @ResponseBody
     @RequestMapping("/create")
     public Object create(Long driverTripId, Long passengerTripId) {
 
-        orderService.createOrder(driverTripId, passengerTripId);
+        tripOrderService.createOrder(driverTripId, passengerTripId);
+        return "OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/payed")
+    public Object payed(Long orderId) {
+
+        orderService.payOrder(orderId);
         return "OK";
     }
 }

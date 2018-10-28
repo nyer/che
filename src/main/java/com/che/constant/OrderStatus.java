@@ -2,9 +2,10 @@ package com.che.constant;
 
 public enum OrderStatus {
 
-    UNPAY(1, "待支付"),
-    FINISH(2, "完成"),
-    CANCEL(3, "取消"),
+    UN_PAY(1, "待支付"),
+    PAYED(2, "已支付"),
+    SUCCESS(3, "交易成功"),
+    CANCEL(4, "取消"),
     ;
     private int status;
     private String desc;

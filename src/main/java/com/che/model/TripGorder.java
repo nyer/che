@@ -1,6 +1,6 @@
 package com.che.model;
 
-public class TripDriverGorder {
+public class TripGorder {
     private Long gorderId;
 
     private Long tripId;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="TripDriverOrderMapper">
-    <resultMap id="BaseResultMap" type="com.che.model.TripDriverOrder">
+<mapper namespace="TripOrderMapper">
+    <resultMap id="BaseResultMap" type="com.che.model.TripOrder">
         <id column="order_id" property="orderId" jdbcType="BIGINT"/>
         <result column="gorder_id" property="gorderId" jdbcType="BIGINT"/>
         <result column="passenger_order_id" property="passengerOrderId" jdbcType="BIGINT"/>
@@ -19,7 +19,7 @@
     <select id="selectByCond" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        from tb_trip_driver_order
+        from tb_trip_order
         <where>
 
             <if test="tripId != null">
@@ -39,16 +39,16 @@
         </where>
     </select>
 
-    <insert id="insert" parameterType="com.che.model.TripDriverOrder" useGeneratedKeys="true" keyColumn="order_id"
+    <insert id="insert" parameterType="com.che.model.TripOrder" useGeneratedKeys="true" keyColumn="order_id"
             keyProperty="orderId">
-    insert into tb_trip_driver_order (gorder_id, passenger_order_id, trip_id, driver_trip_id, user_id, status,
+    insert into tb_trip_order (gorder_id, passenger_order_id, trip_id, driver_trip_id, user_id, status,
       create_time, update_time)
     values (#{gorderId,jdbcType=BIGINT}, #{passengerOrderId,jdbcType=BIGINT}, #{tripId,jdbcType=BIGINT}, #{driverTripId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT},
       #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT})
   </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripDriverOrder">
-        update tb_trip_driver_order
+    <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripOrder">
+        update tb_trip_order
         <set>
             <if test="gorderId != null">
                 gorder_id = #{gorderId, jdbcType=BIGINT},
@@ -73,5 +73,11 @@
             </if>
         </set>
         where order_id = #{orderId,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateOrderStatus" parameterType="map">
+        update tb_trip_order
+        set status = #{toStatus}
+        where order_id = #{orderId} and status = #{fromStatus}
     </update>
 </mapper>

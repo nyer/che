@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="TripDriverGorderMapper" >
-  <resultMap id="BaseResultMap" type="com.che.model.TripDriverGorder" >
+<mapper namespace="TripGorderMapper" >
+  <resultMap id="BaseResultMap" type="com.che.model.TripGorder" >
     <id column="gorder_id" property="gorderId" jdbcType="BIGINT" />
     <result column="trip_id" property="tripId" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
@@ -16,7 +16,7 @@
   <select id="selectByCond" resultMap="BaseResultMap" parameterType="map" >
     select 
     <include refid="Base_Column_List" />
-    from tb_trip_driver_gorder
+    from tb_trip_gorder
     <where>
       <if test="gorderId != null">
         gorder_id = #{gorderId,jdbcType=BIGINT}
@@ -24,8 +24,8 @@
     </where>
   </select>
 
-  <insert id="insert" parameterType="com.che.model.TripDriverGorder" useGeneratedKeys="true" keyColumn="gorder_id" keyProperty="gorderId">
-    insert into tb_trip_driver_gorder (trip_id, user_id,
+  <insert id="insert" parameterType="com.che.model.TripGorder" useGeneratedKeys="true" keyColumn="gorder_id" keyProperty="gorderId">
+    insert into tb_trip_gorder (trip_id, user_id,
       status, create_time, update_time
       )
     values (#{tripId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT},
@@ -33,8 +33,8 @@
       )
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripDriverGorder" >
-    update tb_trip_driver_gorder
+  <update id="updateByPrimaryKeySelective" parameterType="com.che.model.TripGorder" >
+    update tb_trip_gorder
     <set >
       <if test="tripId != null" >
         trip_id = #{tripId,jdbcType=BIGINT},
